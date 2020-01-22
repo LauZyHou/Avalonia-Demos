@@ -13,9 +13,11 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
+    <AvaloniaResource Remove="_Vs\AddItem_V.xaml" />
     <AvaloniaResource Remove="_Vs\TodoList_V.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="_Vs\AddItem_V.xaml" />
     <None Remove="_Vs\TodoList_V.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -25,6 +27,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="_Vs\TodoList_V.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Vs\AddItem_V.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

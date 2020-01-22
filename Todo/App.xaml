@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Todo"
              x:Class="Todo.App">
+  <!--ViewLocator的数据模板-->
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
@@ -11,3 +12,8 @@
         <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
     </Application.Styles>
 </Application>
+
+<!--
+当一个ContentControl的实例(例如Window)的Content设置为非控件时,就会在组件树上搜索DataTemplate以匹配Content中的数据.
+如果其它的DataTemplate都匹配不了这个数据的话,最终就要搜索到这里的ViewLocator,然后用其中定义的方式来返回相应的View
+-->

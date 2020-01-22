@@ -7,7 +7,7 @@
         Height="300" Width="200"
         x:Class="Todo._Vs.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Todo" Content="{Binding TodoListVM}">
+        Title="Todo" Content="{Binding Content}">
 
   <!--<Design.DataContext>
         <vm:MainWindow_VM/>
