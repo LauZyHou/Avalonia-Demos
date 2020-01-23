@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Todo.Services;
+using System.Reactive.Linq;
+using Todo._Ms;
 
 namespace Todo._VMs
 {
@@ -47,10 +49,41 @@ namespace Todo._VMs
 
         #region 方法
 
-        // 点击添加按钮时,将内容视图换成AddItem的视图
+        // 点击添加按钮时执行此方法
         public void AddItem()
         {
-            Content = new AddItem_VM();
+            // 创建AddItem的VM
+            AddItem_VM vm = new AddItem_VM();
+
+            /*
+             Observable.Merge合并任意数量的Obervable对象的输出
+             (这里ReactiveCommand本身就是Observable的)
+             并将它们合并为单个Observable流
+             因为它们正在合并到单个流中，所以它们必须是同一类型
+             可以看下在AddItem_VM两个命令的定义，返回类型一个是TodoItem一个是Unit(也就是void)
+             这里把Cancel的空转为空的TodoItem，类型就一样了
+             */
+            Observable.Merge(
+                vm.Ok,
+                vm.Cancel.Select(_ => (TodoItem)null)
+                )
+                .Take(1) // 因为只对按下"Ok"或"Cancel"的情况的第一次感兴趣,这里表示只取观察序列的第一个值
+                .Subscribe( // 订阅观察结果
+                    // 这两个命令产生的返回值是TodoItem或者null
+                    model =>
+                    {
+                        // 如果不是null,也就是按下了Ok,那么要添加进展示的列表中
+                        if (model != null)
+                        {
+                            TodoListVM.Items.Add(model);
+                        }
+                        // 不论是Ok还是Cancel,都要返回到显示列表的视图
+                        Content = TodoListVM;
+                    }
+                );
+
+            // 将内容换成AddItem的VM,以去显示一个添加页
+            Content = vm;
         }
 
         #endregion 方法

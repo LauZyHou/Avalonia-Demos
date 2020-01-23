@@ -5,8 +5,9 @@
              mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="300"
              x:Class="Todo._Vs.AddItem_V">
   <DockPanel>
-    <Button DockPanel.Dock="Bottom" Content="Cancel" />
-    <Button DockPanel.Dock="Bottom" Content="OK" />
-    <TextBox AcceptsReturn="True" Text="{Binding Description}" Watermark="Enter your TODO" />
+    <Button DockPanel.Dock="Bottom" Content="Cancel" Command="{Binding Cancel}"/>
+    <Button DockPanel.Dock="Bottom" Content="OK" Command="{Binding Ok}"/>
+    <!--AcceptsReturn为True时允许多行-->
+    <TextBox AcceptsReturn="False" Text="{Binding Description}" Watermark="Enter your TODO" />
   </DockPanel>
 </UserControl>
